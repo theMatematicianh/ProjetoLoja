@@ -34,6 +34,13 @@ namespace Projeto
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication("Identity.Login").AddCookie("Identity.Login", config =>
+            {
+                config.Cookie.Name = "Identity.Login";
+                config.LoginPath = "/Login"; 
+                config.AccessDeniedPath = "/Home";
+                config.ExpireTimeSpan = TimeSpan.FromHours(1);
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -42,21 +49,25 @@ namespace Projeto
       builder.MigrationsAssembly("Projeto")));
 
             services.AddScoped<ClientService>();
+            services.AddScoped<SeedingService>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

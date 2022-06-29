@@ -14,7 +14,7 @@ namespace Projeto.Data
         {
         }
 
-        public DbSet<Adm> Adm { get; set; }
+        
         public DbSet<Client> Client { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
