@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Projeto.Data;
 using Projeto.Services;
 using Projeto.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal;
 
 namespace Projeto.Controllers
 {
@@ -34,6 +36,7 @@ namespace Projeto.Controllers
             _clientService.Insert(client);
             return RedirectToAction(nameof(Index));
         }
+   
 
     }
 }

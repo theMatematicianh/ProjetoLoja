@@ -52,9 +52,12 @@ namespace Projeto.Controllers
 
                 await HttpContext.SignInAsync(userPrincipal, new AuthenticationProperties { IsPersistent= false ,ExpiresUtc = DateTime.Now.AddHours(1)});
 
+                if (Lvl ==1)
+                {
+                    return RedirectToAction("Index", "Adm");
+                }
 
-
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Client");
             } 
 
             return RedirectToAction(nameof(Index));

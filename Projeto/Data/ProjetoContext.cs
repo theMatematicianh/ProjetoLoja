@@ -18,6 +18,8 @@ namespace Projeto.Data
         public DbSet<Client> Client { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Photo> Photo { get; set; }
         public DbSet<Product> Product { get; set; }
+      
     }
 }

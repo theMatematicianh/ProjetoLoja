@@ -37,3 +37,5 @@ C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Projeto.cspr
 C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Razor\Views\Client\Index.cshtml.g.cs
 C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Razor\Views\Client\Creat.cshtml.g.cs
 C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Razor\Views\Login\Index.cshtml.g.cs
+C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Razor\Views\Adm\Index.cshtml.g.cs
+C:\Users\mateu\source\repos\Projeto\Projeto\obj\Debug\netcoreapp2.1\Razor\Views\Adm\Create.cshtml.g.cs

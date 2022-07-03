@@ -73,16 +73,45 @@ namespace Projeto.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("Projeto.Models.Product", b =>
+            modelBuilder.Entity("Projeto.Models.Photo", b =>
                 {
-                    b.Property<int>("IdProduct")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<byte[]>("Bytes");
 
-                    b.Property<double>("Price");
+                    b.Property<string>("DescriptionF");
 
-                    b.HasKey("IdProduct");
+                    b.Property<string>("FileExtension");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<decimal>("Size");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Photo");
+                });
+
+            modelBuilder.Entity("Projeto.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DescriptionP")
+                        .IsRequired();
+
+                    b.Property<DateTime>("ExpirationDate");
+
+                    b.Property<DateTime>("ManufactoringDate");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("Size");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Product");
                 });
@@ -99,6 +128,14 @@ namespace Projeto.Migrations
                     b.HasOne("Projeto.Models.Order")
                         .WithMany("OrderItem")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("Projeto.Models.Photo", b =>
+                {
+                    b.HasOne("Projeto.Models.Product", "Product")
+                        .WithMany("Photos")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

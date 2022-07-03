@@ -4,27 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projeto.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Primeira : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Adm",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    BirthDate = table.Column<DateTime>(nullable: false),
-                    Password = table.Column<string>(nullable: true),
-                    Lvl = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Adm", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
@@ -43,14 +26,17 @@ namespace Projeto.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    IdProduct = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false)
+                    DescriptionP = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Size = table.Column<int>(nullable: false),
+                    ManufactoringDate = table.Column<DateTime>(nullable: false),
+                    ExpirationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.IdProduct);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,7 +49,8 @@ namespace Projeto.Migrations
                     Email = table.Column<string>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     Password = table.Column<string>(nullable: true),
-                    orderId = table.Column<int>(nullable: true)
+                    orderId = table.Column<int>(nullable: true),
+                    Lvl = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,6 +84,29 @@ namespace Projeto.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Photo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Bytes = table.Column<byte[]>(nullable: true),
+                    DescriptionF = table.Column<string>(nullable: true),
+                    FileExtension = table.Column<string>(nullable: true),
+                    Size = table.Column<decimal>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Photo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Photo_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Client_orderId",
                 table: "Client",
@@ -106,13 +116,15 @@ namespace Projeto.Migrations
                 name: "IX_OrderItem_OrderId",
                 table: "OrderItem",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photo_ProductId",
+                table: "Photo",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Adm");
-
             migrationBuilder.DropTable(
                 name: "Client");
 
@@ -120,10 +132,13 @@ namespace Projeto.Migrations
                 name: "OrderItem");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Photo");
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Product");
         }
     }
 }
